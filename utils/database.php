@@ -13,8 +13,13 @@ class Database{
         }
     }
 	
-	public static function query($sql){
+	public static function query($sql, $params=null){
 		$conn = self::getConnection();
+		if(isset($params)){
+			$sth = $conn->prepare($sql);
+			$sth->execute($params);
+			return $sth->fetchAll();
+		}
 		$result = $conn->query($sql);
 		if ($result == false) {
 			http_response_code(500);

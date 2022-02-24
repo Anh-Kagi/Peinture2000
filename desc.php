@@ -1,17 +1,14 @@
-<!DOCTYPE html>
-<html>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<head>
 <?php
+require_once('./services/productService.php');
 
-// $paint = mysql_query("SELECT * FROM paint WHERE ")
+$paint = productService::getProductById($_GET['id']);
+ob_start(); 
 
 ?>
+<?php $title = $paint->name; ?>
 
-
-<body>
-	<ul class="list-group"><h1 class="display-3"> <?php echo("Peinture Noir Mat")?></h1>
+<h1><?php echo $paint->name; ?></h1>
+	<ul class="list-group">
 	
 		<li class ="list-group-item list-group-item-secondary">
 				
@@ -48,7 +45,7 @@
 		</li>
 		<li class ="list-group-item list-group-item-secondary">
 			<h1 class="display-6">Description :</h1>
-			<?php echo("Une peinture d'un noir profond et mat. Idéal en tant que base pour un support plus coloré.")?>
+			<?php echo $paint->description; ?>
 	
 		</li>
 		
@@ -57,19 +54,24 @@
 	</ul>
 	<ul class="list-group list-group-horizontal">
 		<li class ="list-group-item flex-fill list-group-item-secondary">
-			<h4> Teinte : <?php echo("Noir") ?></h4>
+			<h4> Teinte : <?php ?></h4>
 		</li>
 		<li class ="list-group-item flex-fill list-group-item-secondary">
-			<h4> Disponibilité : <?php echo("46 exemplaires") ?> </h4>
+			<h4> Disponibilité : <?php 
+				if($paint->quantity > 0){
+					echo $paint->quantity;
+				}else{
+					echo("Non disponible");
+				}
+			?> </h4>
 		</li>
 		<li class ="list-group-item flex-fill list-group-item-secondary">
-			<h4> PRIX : 25€</h4>
+			<h4> PRIX : <?php echo $paint->price;?></h4>
 		</li>
 	</ul>
 
 
-
-
-</body>
-</head>
-</html>
+<?php
+$content = ob_get_clean();
+require_once('./inc/template.php');
+?>

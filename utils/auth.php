@@ -1,16 +1,16 @@
 <?php
 namespace auth;
 
+require_once("utils/session.php");
+require_once("services/userService.php");
+require_once("models/user.php");
+
 function authenticate($username, $password) {
-    $filename = "users.json";
-    $file = fopen($filename, "r");
-    $users = json_decode(fread($file, filesize($filename)), true);
-    fclose($file);
-    if (!array_key_exists($username, $users)) {
+    if (!\UserService::existsUser($username)) {
         return false;
     } else {
-        if ($users[$username] == $password) {
-            session_start();
+        $user = \UserService::getUser($username);
+        if ($user::verifyPassword($password)) {
             $_SESSION["LOGGED"] = true;
             return true;
         } else {
@@ -20,17 +20,11 @@ function authenticate($username, $password) {
 }
 
 function register($username, $password) {
-    $filename = "users.json";
-    $file = fopen($filename, "r");
-    $users = json_decode(fread($file, filesize($filename)), true);
-    fclose($file);
-    if (array_key_exists($username, $users)) {
+    if (\UserService::existsUser($username)) {
         return false;
     } else {
-        $users[$username] = $password;
-        $file = fopen($filename, "w");
-        fwrite($file, json_encode($users));
-        fclose($file);
+        $user = new User(0, $username, $password);
+        \UserService::insertUser($user);
         return authenticate($username, $password);
     }
 }

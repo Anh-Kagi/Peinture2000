@@ -1,6 +1,8 @@
 <?php
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    require_once("./util/auth.php");
+    require_once("utils/auth.php");
+    require_once("services/userService.php");
+    require_once("models/user.php");
 
 	if (!isset($_POST["username"]) || !isset($_POST["password"]) || !isset($_POST["register"])) {
         header("Location: {$_SERVER['REQUEST_URI']}", true, 400);

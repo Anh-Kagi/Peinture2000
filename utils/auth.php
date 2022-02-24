@@ -28,7 +28,7 @@ function register($username, $password) {
         return false;
     } else {
         $users[$username] = $password;
-        $file = fopen($filename, "r");
+        $file = fopen($filename, "w");
         fwrite($file, json_encode($users));
         fclose($file);
         return authenticate($username, $password);

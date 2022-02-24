@@ -5,8 +5,14 @@ $products = ProductService::getAllProducts();
 ?>
 
 <h1 class="mt-4"> Liste des Produits </h1>
-<table class="table">
-	<thead>
+<div class="table-responsive">
+<style>
+table{
+	margin: 0.1em;
+}
+</style>
+<table class="table table-striped table-bordered">
+	<thead class="thead-dark">
 		<tr>
 			<th>ID</th>
 			<th>Nom</th>
@@ -37,6 +43,7 @@ $products = ProductService::getAllProducts();
 	</tbody>					
 
 </table>
+</div>
 
 
 

@@ -20,7 +20,7 @@ services:
         expose:
             - 3306
         volumes:
-            - ../utils/peinture2000.sql:/docker-entrypoint-initdb.d/peinture2000.sql:ro
+            - ./peinture2000.sql:/docker-entrypoint-initdb.d/peinture2000.sql:ro
             - db:/var/lib/mysql
 
     phpmyadmin:

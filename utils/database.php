@@ -3,8 +3,8 @@ class Database
 {
     private static $host = "mysql";
     private static $dbname = "peinture2000";
-    private static $username = "root";
-    private static $pwd = "root";
+    private static $username = "<user>";
+    private static $pwd = "<password>";
 
     public static function getConnection()
     {

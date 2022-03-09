@@ -1,10 +1,12 @@
 <?php
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
+require_once("utils/session.php");
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once("utils/auth.php");
     require_once("services/userService.php");
     require_once("models/user.php");
 
-	if (!isset($_POST["username"]) || !isset($_POST["password"]) || !isset($_POST["register"])) {
+    if (!isset($_POST["username"]) || !isset($_POST["password"]) || !isset($_POST["register"])) {
         header("Location: {$_SERVER['REQUEST_URI']}", true, 400);
         exit();
     } else {
@@ -22,11 +24,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         exit();
     }
 }
-?>
 
-<?php $title = 'Mon compte'; ?>
-
-<?php ob_start(); ?>
+$title = 'Mon compte';
+ob_start(); ?>
 <h1>Mon Compte</h1>
 
 <p>
@@ -35,31 +35,27 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 <form method="post">
     <h1>Connexion</h1>
     <label for="username">Nom d'utilisateur:</label>
-    <input type="text" placeholder="Nom d'utilisateur" name="username"/>
-    
-    <label for="username">Mot de passe:</label>
-    <input type="password" placeholder="Mot de passe" name="password"/>
+    <input type="text" placeholder="Nom d'utilisateur" name="username" />
 
-    <input type="hidden" name="register" value="false"/>
+    <label for="username">Mot de passe:</label>
+    <input type="password" placeholder="Mot de passe" name="password" />
+
+    <input type="hidden" name="register" value="false" />
     <button type="submit">Connexion</button>
 </form>
-        
+
 <form method="post">
     <h1>Register</h1>
     <label for="username">Nom d'utilisateur:</label>
-    <input type="text" placeholder="Nom d'utilisateur" name="username"/>
-    
-    <label for="username">Mot de passe:</label>
-    <input type="password" placeholder="Mot de passe" name="password"/>
+    <input type="text" placeholder="Nom d'utilisateur" name="username" />
 
-    <input type="hidden" name="register" value="true"/>
+    <label for="username">Mot de passe:</label>
+    <input type="password" placeholder="Mot de passe" name="password" />
+
+    <input type="hidden" name="register" value="true" />
     <button type="submit">Connexion</button>
 </form>
 
 <?php
 $content = ob_get_clean();
 require_once('./inc/template.php');
-?>
-
-<?php
-session_start();

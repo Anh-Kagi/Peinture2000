@@ -1,5 +1,6 @@
 <?php
-class Product{
+class Product
+{
     public int $id;
     public int $shade_id;
     public string $name;
@@ -7,7 +8,8 @@ class Product{
     public string $description;
     public int $quantity;
 
-    public function __construct(int $id, int $shade_id, string $name, float $price, ?string $description, ?int $quantity){
+    public function __construct(int $id, int $shade_id, string $name, float $price, ?string $description, ?int $quantity)
+    {
         $this->id = $id;
         $this->shade_id = $shade_id;
         $this->name = $name;
@@ -16,4 +18,3 @@ class Product{
         $this->quantity = $quantity ?? 0;
     }
 }
-?>

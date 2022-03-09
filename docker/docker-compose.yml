@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+
+    php:
+        build:
+            context: .
+            dockerfile: Dockerfile.php
+        ports:
+            - 9080:80
+        volumes:
+            - ../:/var/www/html/:ro
+        links:
+            - mysql
+    
+    mysql:
+        image: mysql:latest
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+        expose:
+            - 3306
+        volumes:
+            - ../utils/peinture2000.sql:/docker-entrypoint-initdb.d/peinture2000.sql:ro
+            - db:/var/lib/mysql
+
+    phpmyadmin:
+        image: phpmyadmin:latest
+        environment:
+            PMA_HOST: mysql
+            PMA_PORT: 3306
+            PMA_USER: root
+            PMA_PASSWORD: root
+        ports:
+            - 9081:80
+
+volumes:
+    db:
